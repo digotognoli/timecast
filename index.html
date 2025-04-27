@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Início - TimeCast</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand logo-tc" href="index.html">TC</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                 <form class="d-flex flex-grow-1 mx-lg-5 my-2 my-lg-0">
+                     <div class="input-group">
+                        <span class="input-group-text bg-light border-0"><i class="bi bi-search"></i></span>
+                        <input class="form-control border-0 bg-light" type="search" placeholder="Pesquise um podcast" aria-label="Search">
+                    </div>
+                </form>
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item me-2">
+                        <a class="btn btn-outline-primary btn-sm" href="#">Criar conta</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn btn-primary btn-sm btn-fazer-login" href="login.html">Fazer login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse pt-4">
+                <div class="position-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">
+                                <i class="bi bi-house-door-fill me-2"></i> Início
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-heart-fill me-2"></i> Favoritos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-clock-history me-2"></i> Histórico
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+                <h2 class="mb-3">Os mais ouvidos</h2>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4 mb-5">
+                    <div class="col">
+                        <div class="card h-100 podcast-card">
+                            <a href="podcast.html?id=podcastA" class="text-decoration-none text-dark">
+                                <img src="Imagens/cowomen-UUPpu2sYV6E-unsplash.jpg" class="card-img-top" alt="Podcast A">
+                                <div class="card-body">
+                                    <h5 class="card-title">Podcast A</h5>
+                                    <p class="card-text"><small class="text-muted">15 episódios</small></p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 podcast-card">
+                             <a href="podcast.html?id=podcastB" class="text-decoration-none text-dark">
+                                <img src="Imagens/podcast.jpg" class="card-img-top" alt="Podcast B">
+                                <div class="card-body">
+                                    <h5 class="card-title">Outro Podcast Legal</h5>
+                                    <p class="card-text"><small class="text-muted">23 episódios</small></p>
+                                </div>
+                             </a>
+                        </div>
+                    </div>
+                     <div class="col">
+                        <div class="card h-100 podcast-card">
+                             <a href="podcast.html?id=podcastC" class="text-decoration-none text-dark">
+                                <img src="Imagens/tecnologia.jpg" class="card-img-top" alt="Podcast C">
+                                <div class="card-body">
+                                    <h5 class="card-title">Podcast de Tech</h5>
+                                    <p class="card-text"><small class="text-muted">8 episódios</small></p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                     <div class="col">
+                        <div class="card h-100 podcast-card">
+                             <a href="podcast.html?id=podcastD" class="text-decoration-none text-dark">
+                                <img src="Imagens/historias.jpg" class="card-img-top" alt="Podcast D">
+                                <div class="card-body">
+                                    <h5 class="card-title">Histórias Incríveis</h5>
+                                    <p class="card-text"><small class="text-muted">30 episódios</small></p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                     <div class="col">
+                        <div class="card h-100 podcast-card">
+                             <a href="podcast.html?id=cafeInspiracao" class="text-decoration-none text-dark">
+                                <img src="Imagens/cafe.jpg" class="card-img-top" alt="Café Com Inspiração">
+                                <div class="card-body">
+                                    <h5 class="card-title">Café Com Inspiração</h5>
+                                    <p class="card-text"><small class="text-muted">58 episódios</small></p>
+                                </div>
+                             </a>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="mb-3">Talvez você goste</h2>
+                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
+                    <div class="col">
+                        <div class="card h-100 podcast-card">
+                             <a href="podcast.html?id=podcastF" class="text-decoration-none text-dark">
+                                <img src="Imagens/fotografia.jpg" class="card-img-top" alt="Podcast F">
+                                <div class="card-body">
+                                    <h5 class="card-title">Fotografia Diária</h5>
+                                    <p class="card-text"><small class="text-muted">12 episódios</small></p>
+                                </div>
+                             </a>
+                        </div>
+                    </div>
+                     <div class="col">
+                        <div class="card h-100 podcast-card">
+                             <a href="podcast.html?id=podcastG" class="text-decoration-none text-dark">
+                                <img src="Imagens/game.jpg" class="card-img-top" alt="Podcast G">
+                                <div class="card-body">
+                                    <h5 class="card-title">Game Over Review</h5>
+                                    <p class="card-text"><small class="text-muted">40 episódios</small></p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </body>
+</html>
