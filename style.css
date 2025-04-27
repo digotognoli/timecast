@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa; 
+}
+
+.bg-illustration {
+    background-color: #E8F5E9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.illustration-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 1rem;
+    max-width: 500px;
+}
+
+.illustration-grid img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+
+.login-form {
+    max-width: 450px;
+    width: 100%;
+    border: none;
+}
+
+.form-title {
+    color: #333;
+}
+
+.input-custom {
+    background-color: #f1f1f1;
+    border: none;
+    border-radius: 0.5rem; 
+}
+.input-custom:focus {
+    background-color: #fff;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+
+.btn-entrar {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+    font-weight: 600;
+}
+
+.btn-entrar:hover {
+    background-color: #45a049;
+    border-color: #45a049;
+}
+
+.btn-outline-secondary i {
+    color: #6c757d;
+}
+
+.logo-tc {
+    background-color: #4CAF50;
+    color: white !important;
+    font-weight: bold;
+    padding: 5px 12px;
+    border-radius: 50%;
+    margin-right: 15px;
+    text-decoration: none;
+}
+.logo-tc:hover {
+    color: white;
+    background-color: #45a049;
+}
+
+.navbar {
+    border-bottom: 1px solid #eee;
+}
+
+.btn-fazer-login {
+     background-color: #4CAF50;
+     border-color: #4CAF50;
+}
+.btn-fazer-login:hover {
+    background-color: #45a049;
+    border-color: #45a049;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100; 
+    padding-top: 56px;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+    background-color: #f8f9fa !important;
+    border-right: 1px solid #eee;
+}
+
+@media (max-width: 767.98px) {
+  .sidebar {
+    top: 56px;
+    padding-top: 0;
+    height: calc(100vh - 56px); 
+  }
+}
+
+.sidebar .nav-link {
+    font-weight: 500;
+    color: #333;
+    padding: 0.75rem 1rem;
+}
+
+.sidebar .nav-link .bi {
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+    margin-right: 8px;
+    color: #6c757d;
+}
+
+.sidebar .nav-link.active {
+    color: #0d6efd;
+    background-color: #e9ecef;
+    border-left: 3px solid #0d6efd;
+    padding-left: calc(1rem - 3px);
+}
+.sidebar .nav-link.active .bi {
+    color: #0d6efd;
+}
+
+
+.sidebar .nav-link:hover {
+    background-color: #e9ecef;
+}
+
+main {
+    padding-top: 24px;
+}
+
+.podcast-card {
+    border: none;
+    transition: transform .2s ease-in-out, box-shadow .2s ease-in-out;
+    border-radius: 8px; 
+    overflow: hidden;
+     background-color: #fff;
+}
+
+.podcast-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .15);
+}
+
+.podcast-card .card-img-top {
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.podcast-card .card-body {
+    padding: 0.8rem;
+}
+
+.podcast-card .card-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.episode-list .list-group-item {
+    border-top: 1px solid #eee;
+    padding: 1rem 0.5rem;
+}
+.episode-list .list-group-item:first-child {
+    border-top: none;
+}
+
+.episode-list a {
+    font-size: 0.9rem;
+}
+
+.episode-list .btn {
+     padding: 0.2rem 0.5rem;
+     font-size: 0.8rem;
+}
+
+.episode-list .btn-success i {
+    vertical-align: middle;
+}
