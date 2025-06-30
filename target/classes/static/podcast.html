@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carregando Podcast...</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand logo-tc" href="index.html">TC</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                 <form class="d-flex flex-grow-1 mx-lg-5 my-2 my-lg-0">
+                     <div class="input-group">
+                        <span class="input-group-text bg-light border-0"><i class="bi bi-search"></i></span>
+                        <input class="form-control border-0 bg-light" type="search" placeholder="Pesquise um podcast" aria-label="Search">
+                    </div>
+                </form>
+                 <ul class="navbar-nav ms-auto align-items-center">
+                    <li id="upload-btn-li" class="nav-item me-3" style="display: none;"><a href="upload.html" class="btn btn-success btn-sm"><i class="bi bi-mic-fill me-1"></i> Novo Episódio</a></li>
+                    <li id="create-account-btn" class="nav-item me-2"><a class="btn btn-outline-primary btn-sm" href="registrar.html">Criar conta</a></li>
+                    <li id="login-btn" class="nav-item"><a class="btn btn-primary btn-sm btn-fazer-login" href="login.html">Fazer login</a></li>
+                    <li id="user-info" class="nav-item dropdown" style="display: none;">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle me-1"></i> <span id="user-email-display"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><button id="logout-btn" class="dropdown-item" type="button">Sair</button></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky pt-4">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house-door-fill me-2"></i> Início</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-compass me-2"></i> Aventurar</a></li>
+                        <li class="nav-item"><a class="nav-link" href="favoritos.html"><i class="bi bi-heart-fill me-2"></i> Favoritos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#"><i class="bi bi-clock-history me-2"></i> Histórico</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main id="main-content" class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+                <div id="podcast-details-container">
+                    <p>Carregando detalhes do podcast...</p>
+                 </div>
+            </main>
+        </div>
+    </div>
+
+    <div class="rating mt-2">
+        <i class="bi bi-star" data-rate="1"></i>
+        <i class="bi bi-star" data-rate="2"></i>
+        <i class="bi bi-star" data-rate="3"></i>
+        <i class="bi bi-star" data-rate="4"></i>
+        <i class="bi bi-star" data-rate="5"></i>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // --- LÓGICA DE LOGIN/LOGOUT ---
+            const loggedInUserEmail = sessionStorage.getItem('loggedInUserEmail');
+            const createAccountBtn = document.getElementById('create-account-btn');
+            const loginBtn = document.getElementById('login-btn');
+            const userInfo = document.getElementById('user-info');
+            const userEmailDisplay = document.getElementById('user-email-display');
+            const logoutBtn = document.getElementById('logout-btn');
+            const uploadBtnLi = document.getElementById('upload-btn-li');
+            
+            if (loggedInUserEmail) {
+                createAccountBtn.style.display = 'none';
+                loginBtn.style.display = 'none';
+                userInfo.style.display = 'block';
+                uploadBtnLi.style.display = 'block';
+                userEmailDisplay.textContent = loggedInUserEmail;
+            } else {
+                createAccountBtn.style.display = 'block';
+                loginBtn.style.display = 'block';
+                userInfo.style.display = 'none';
+                uploadBtnLi.style.display = 'none';
+            }
+            logoutBtn.addEventListener('click', () => {
+                sessionStorage.removeItem('loggedInUserEmail');
+                window.location.href = 'login.html';
+            });
+
+            // --- LÓGICA DA PÁGINA DE PODCAST ---
+            const mainContent = document.getElementById('main-content');
+            const podcastDetailsContainer = document.getElementById('podcast-details-container');
+            const params = new URLSearchParams(window.location.search);
+            const podcastId = params.get('id');
+
+            // --- FUNÇÕES DE FAVORITOS ---
+            function getFavorites() {
+                const favorites = localStorage.getItem('favoritos');
+                return favorites ? JSON.parse(favorites) : [];
+            }
+
+            function isFavorited(episodeId) {
+                return getFavorites().includes(episodeId);
+            }
+
+            function toggleFavorite(episodeId) {
+                let favorites = getFavorites();
+                if (favorites.includes(episodeId)) {
+                    favorites = favorites.filter(id => id !== episodeId);
+                } else {
+                    favorites.push(episodeId);
+                }
+                localStorage.setItem('favoritos', JSON.stringify(favorites));
+            }
+
+            if (!podcastId) {
+                mainContent.innerHTML = '<div class="alert alert-danger">Erro: ID do podcast não fornecido na URL.</div>';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/podcasts/${podcastId}`);
+                if (!response.ok) {
+                    throw new Error(`Podcast com ID ${podcastId} não encontrado.`);
+                }
+                const podcast = await response.json();
+
+                const avaliacoes = JSON.parse(localStorage.getItem('avaliacoes') || '{}');
+                const estatisticas = JSON.parse(localStorage.getItem('estatisticas') || '{}');
+                
+                document.title = `${podcast.titulo} - TimeCast`;
+
+                let detailsHtml = `
+                    <div class="row mb-4 align-items-center">
+                        <div class="col-md-3 text-center text-md-start mb-3 mb-md-0">
+                            <img src="${podcast.imagemUrl || 'https://via.placeholder.com/200'}" class="img-fluid rounded shadow-sm" style="max-width: 200px;" alt="Capa de ${podcast.titulo}">
+                        </div>
+                        <div class="col-md-9">
+                            <h1 class="display-6 fw-bold mb-1">${podcast.titulo}</h1>
+                            <p class="text-muted mb-2">por ${podcast.autor}</p>
+                            <p class="mb-3">${podcast.descricao}</p>
+                        </div>
+                    </div>
+
+                    <h3 class="mb-3 pt-3 border-top">Episódios</h3>
+                    <ul id="episode-list-container" class="list-group list-group-flush episode-list"></ul>
+                `;
+                podcastDetailsContainer.innerHTML = detailsHtml;
+
+                const episodeListContainer = document.getElementById('episode-list-container');
+                if (podcast.episodios && podcast.episodios.length > 0) {
+                    podcast.episodios.forEach((episode, index) => {
+                        const favorited = isFavorited(episode.id);
+                        const episodeHtml = `
+                            <li class="list-group-item px-0">
+                                <div class="d-flex align-items-center">
+                                    <span class="me-3 text-muted fw-bold">${index + 1}.</span>
+                                    <div class="flex-grow-1">
+                                        <p class="fw-bold mb-1">${episode.titulo}</p>
+                                        <audio controls class="w-100 mb-2" src="${episode.audioUrl}" onplay="incrementarReproducao(${episode.id})"></audio>
+
+                                        <div class="d-flex flex-wrap align-items-center gap-2">
+                                            <!-- Avaliação -->
+                                            <div class="rating" data-id="${episode.id}">
+                                                ${[1, 2, 3, 4, 5].map(i =>
+                                                    `<i class="bi ${avaliacoes[episode.id] >= i ? 'bi-star-fill' : 'bi-star'} text-warning me-1" data-rate="${i}"></i>`
+                                                ).join('')}
+                                            </div>
+
+                                            <!-- Compartilhar -->
+                                            <button class="btn btn-sm btn-outline-secondary" onclick="compartilhar('${episode.titulo}', window.location.href)">
+                                                <i class="bi bi-share-fill"></i>
+                                            </button>
+
+                                            <!-- Denunciar -->
+                                            <button class="btn btn-sm btn-outline-danger" onclick="denunciar(${episode.id})">
+                                                <i class="bi bi-flag-fill"></i>
+                                            </button>
+
+                                            <!-- Favoritar -->
+                                            <button class="btn btn-sm btn-outline-${favorited ? 'danger' : 'secondary'} favorite-btn" data-episode-id="${episode.id}">
+                                                <i class="bi ${favorited ? 'bi-heart-fill' : 'bi-heart'}"></i>
+                                            </button>
+
+                                            <!-- Estatísticas -->
+                                            <span class="text-muted small"><i class="bi bi-bar-chart-fill"></i> ${estatisticas[episode.id] || 0} reproduções</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        `;
+                        episodeListContainer.innerHTML += episodeHtml;
+                    });
+
+                    document.querySelectorAll('.favorite-btn').forEach(button => {
+                        button.addEventListener('click', () => {
+                            const episodeId = parseInt(button.dataset.episodeId);
+                            toggleFavorite(episodeId);
+                            button.classList.toggle('favorited');
+                            const icon = button.querySelector('i');
+                            icon.classList.toggle('bi-heart');
+                            icon.classList.toggle('bi-heart-fill');
+                        });
+                    });
+
+                    // Avaliação por estrelas
+                    document.querySelectorAll('.rating').forEach(starGroup => {
+                        starGroup.querySelectorAll('i').forEach(star => {
+                            star.addEventListener('click', () => {
+                                const id = parseInt(starGroup.dataset.id);
+                                const rate = parseInt(star.dataset.rate);
+                                avaliacoes[id] = rate;
+                                localStorage.setItem('avaliacoes', JSON.stringify(avaliacoes));
+                                location.reload();
+                            });
+                        });
+                    });
+
+                } else {
+                    episodeListContainer.innerHTML = '<li class="list-group-item px-0">Nenhum episódio encontrado para este podcast.</li>';
+                }
+
+            } catch (error) {
+                // ESTA É A LINHA QUE FOI CORRIGIDA (SEM A BARRA INVERTIDA)
+                mainContent.innerHTML = `<div class="alert alert-danger">${error.message}</div>`;
+            }
+        });
+
+        function compartilhar(titulo, url) {
+                if (navigator.share) {
+                    navigator.share({ title: titulo, url });
+                } else {
+                    navigator.clipboard.writeText(url);
+                    alert("Link copiado para a área de transferência!");
+                }
+            }
+
+            function denunciar(id) {
+                const motivo = prompt("Descreva o motivo da denúncia:");
+                if (motivo) {
+                    const denuncias = JSON.parse(localStorage.getItem('denuncias') || '{}');
+                    denuncias[id] = motivo;
+                    localStorage.setItem('denuncias', JSON.stringify(denuncias));
+                    alert("Denúncia registrada com sucesso.");
+                }
+            }
+
+            function incrementarReproducao(id) {
+                const estatisticas = JSON.parse(localStorage.getItem('estatisticas') || '{}');
+                estatisticas[id] = (estatisticas[id] || 0) + 1;
+                localStorage.setItem('estatisticas', JSON.stringify(estatisticas));
+            }
+    </script>
+</body>
+</html>
